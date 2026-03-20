@@ -3,7 +3,7 @@ from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
     # Database
-    DATABASE_URL: str = "postgresql://postgres:postgres@localhost:5432/nyansns"
+    DATABASE_URL: str = "postgresql://postgres@localhost:5432/nyansns"
 
     # Redis
     REDIS_URL: str = "redis://localhost:6379"
