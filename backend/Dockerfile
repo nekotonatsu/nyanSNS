@@ -18,7 +18,7 @@ COPY . .
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
 
 FROM base AS production
-COPY . .
 RUN addgroup --system appgroup && adduser --system --group appuser
+COPY --chown=appuser:appgroup . .
 USER appuser
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "4"]
