@@ -16,8 +16,8 @@ class Settings(BaseSettings):
 
     # MinIO
     MINIO_ENDPOINT: str = "localhost:9000"
-    MINIO_ACCESS_KEY: str = "minioadmin"
-    MINIO_SECRET_KEY: str = "minioadmin"
+    MINIO_ACCESS_KEY: str
+    MINIO_SECRET_KEY: str
     MINIO_BUCKET: str = "nyansns"
     MINIO_SECURE: bool = False
 
