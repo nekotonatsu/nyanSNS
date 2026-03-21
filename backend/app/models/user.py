@@ -90,7 +90,7 @@ class User(Base):
     likes = relationship(
         "Like",
         back_populates="user",
-        cascade="all,delete-orphan"
+        cascade="all, delete-orphan"
     )
 
     followers = relationship(
