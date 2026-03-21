@@ -1,6 +1,7 @@
 from datetime import datetime, timezone
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Text
 from sqlalchemy.orm import relationship
+from sqlalchemy.sql import func
 from app.core.database import Base
 
 
@@ -36,13 +37,15 @@ class Post(Base):
 
     created_at = Column(
         DateTime(timezone=True),
-        default=lambda:datetime.now(timezone.utc)
+        server_default=func.now(),
+        nullable=False
     )
 
     updated_at = Column(
         DateTime(timezone=True),
-        default=lambda:datetime.now(timezone.utc),
-        onupdate=lambda:datetime.now(timezone.utc)
+        server_default=func.now(),
+        onupdate=func.now(),
+        nullable=False
     )
 
     author = relationship(
