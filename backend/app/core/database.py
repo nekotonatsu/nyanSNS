@@ -19,7 +19,6 @@ def get_session_local():
     global _SessionLocal
     if _SessionLocal is None:
         _SessionLocal = sessionmaker(
-            autocommit=False,
             autoflush=False,
             bind=get_engine()
         )
