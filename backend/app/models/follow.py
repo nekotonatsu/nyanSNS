@@ -1,6 +1,7 @@
 from datetime import datetime, timezone
 from sqlalchemy import Column, Integer, ForeignKey, DateTime, UniqueConstraint
 from sqlalchemy.orm import relationship
+from sqlalchemy.sql import func
 from app.core.database import Base
 
 
@@ -35,7 +36,8 @@ class Follow(Base):
 
     created_at = Column(
         DateTime(timezone=True),
-        default=lambda:datetime.now(timezone.utc)
+        server_default=func.now(),
+        nullable=False
     )
 
     follower = relationship(
