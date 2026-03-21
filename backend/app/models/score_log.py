@@ -1,6 +1,7 @@
 from datetime import datetime, timezone
 from sqlalchemy import Column, Integer, ForeignKey, DateTime, String
 from sqlalchemy.orm import relationship
+from sqlalchemy.sql import func
 from app.core.database import Base
 
 class ScoreLog(Base):
@@ -18,5 +19,6 @@ class ScoreLog(Base):
 
     created_at = Column(
         DateTime(timezone=True),
-        default=lambda:datetime.now(timezone.utc)
+        server_default=func.now(),
+        nullable=False
     )
