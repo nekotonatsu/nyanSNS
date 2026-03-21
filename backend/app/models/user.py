@@ -72,7 +72,7 @@ class User(Base):
         DateTime(timezone=True),
         server_default=func.now(),
         nullable=False,
-        onupdate=lambda:datetime.now(timezone.utc)
+        onupdate=func.now()
     )
 
     posts = relationship(
