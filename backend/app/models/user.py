@@ -1,6 +1,7 @@
 from datetime import datetime, timezone
 from sqlalchemy import Column, Integer, String, Boolean, DateTime, Text
 from sqlalchemy.orm import relationship
+from sqlalchemy.sql import func
 from app.core.database import Base
 
 
@@ -63,12 +64,14 @@ class User(Base):
 
     created_at = Column(
         DateTime(timezone=True),
-        default=lambda:datetime.now(timezone.utc)
+        server_default=func.now(),
+        nullable=False
     )
 
     updated_at = Column(
         DateTime(timezone=True),
-        default=lambda:datetime.now(timezone.utc),
+        server_default=func.now(),
+        nullable=False,
         onupdate=lambda:datetime.now(timezone.utc)
     )
 
