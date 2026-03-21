@@ -22,3 +22,8 @@ class ScoreLog(Base):
         server_default=func.now(),
         nullable=False
     )
+
+    user = relationship(
+        "User",
+        back_populates="score_logs"
+    )
