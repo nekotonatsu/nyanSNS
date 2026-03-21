@@ -1,6 +1,7 @@
 from datetime import datetime, timezone
 from sqlalchemy import Column, Integer, ForeignKey, DateTime, Text, Boolean
 from sqlalchemy.orm import relationship
+from sqlalchemy.sql import func
 from app.core.database import Base
 
 
@@ -9,8 +10,7 @@ class Message(Base):
 
     id = Column(
         Integer,
-        primary_key=True,
-        index=True
+        primary_key=True
     )
 
     sender_id = Column(
@@ -31,8 +31,8 @@ class Message(Base):
 
     created_at = Column(
         DateTime(timezone=True),
-        default=lambda:
-        datetime.now(timezone.utc)
+        server_default=func.now(),
+        nullable=False
     )
 
     sender = relationship(
