@@ -22,7 +22,7 @@ def verify_password(plain_password: str, hashed_password: str) ->bool:
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -> str:
     to_encode = data.copy()
-    if expires_delta:
+    if expires_delta is not None:
         expire = datetime.now(timezone.utc) + expires_delta
     else:
         expire = datetime.now(timezone.utc) + \
@@ -47,13 +47,20 @@ def create_refresh_token(data: dict) -> str:
     )
 
 
-def decode_token(token: str) -> Optional[dict]:
+def decode_token(
+        token: str,
+        expected_type: Optional[str] = None
+    ) -> Optional[dict]:
     try:
         payload = jwt.decode(
             token,
             settings.SECRET_KEY,
             algorithms=[settings.ALGORITHM]
         )
+        token_type = payload.get("type")
+        # 期待するトークンの種類を判別することで誤った種別で通過するのを防ぐ
+        if expected_type is not None and token_type != expected_type:
+            return None
         return payload
     except JWTError:
         return None
